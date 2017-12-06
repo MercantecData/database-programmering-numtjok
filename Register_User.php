@@ -34,10 +34,11 @@ if (isset($_POST['Register'])) {
   $Username=$_POST['user'];
   $Password=$_POST['pass'];
   $Age=$_POST['age'];
+  $HashedPassword=password_hash($Password, PASSWORD_DEFAULT);
   $Username=mysqli_real_escape_string($conn, $Username);
-  $Password=mysqli_real_escape_string($conn, $Password);
+  $HashedPassword=mysqli_real_escape_string($conn, $HashedPassword);
   $Age=mysqli_real_escape_string($conn, $Age);
-  mysqli_query($conn,"INSERT INTO people (Username, Age, Password) VALUES ('".$Username."','".$Age."','".$Password."')");
+  mysqli_query($conn,"INSERT INTO people (Username, Age, Password) VALUES ('".$Username."','".$Age."','".$HashedPassword."')");
   }
   ?>
 

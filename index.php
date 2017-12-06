@@ -40,10 +40,11 @@ if (isset($_POST['LoggedIn'])) {
   $Password=$_POST['pass'];
   $Username=mysqli_real_escape_string($conn, $Username);
   $Password=mysqli_real_escape_string($conn, $Password);
-	$sql = "SELECT Username, Password FROM people WHERE Username='".$Username."' AND Password='".$Password."'";
+	$sql = "SELECT Password FROM people WHERE Username='".$Username."'"; 
   $result = $conn->query($sql);
+  $HashedPassword=$result->fetch_object()->Password;
 
-    if ($result->num_rows >0) {
+    if (password_verify($Password, $HashedPassword)) {
       header('Location: ./Success.html');
     }
     else {
