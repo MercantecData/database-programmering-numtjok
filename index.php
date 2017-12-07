@@ -35,23 +35,23 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 </form> 
   <!-- Login Check -->
 <?php 
-if (isset($_POST['LoggedIn'])) {
-  $Username=$_POST['user'];
-  $Password=$_POST['pass'];
-  $Username=mysqli_real_escape_string($conn, $Username);
-  $Password=mysqli_real_escape_string($conn, $Password);
-	$sql = "SELECT Password FROM people WHERE Username='".$Username."'"; 
-  $result = $conn->query($sql);
-  $HashedPassword=$result->fetch_object()->Password;
+  if (isset($_POST['LoggedIn'])) {
+    $Username=$_POST['user'];
+    $Password=$_POST['pass'];
+    $Username=mysqli_real_escape_string($conn, $Username);
+    $Password=mysqli_real_escape_string($conn, $Password);
+    $sql = "SELECT Password FROM people WHERE Username='".$Username."'"; 
+    $result = $conn->query($sql);
+    $HashedPassword=$result->fetch_object()->Password;
 
-    if (password_verify($Password, $HashedPassword)) {
-      header('Location: ./Success.html');
-    }
-    else {
-      echo "Either the password or username is WRONG!";
-          }
+      if (password_verify($Password, $HashedPassword)) {
+        header('Location: ./Success.html');
+      }
+      else {
+        echo "Either the password or username is WRONG!";
+      }
 
-}
+  }
 
 ?>
 
