@@ -38,7 +38,15 @@ if (isset($_POST['Register'])) {
   $Username=mysqli_real_escape_string($conn, $Username);
   $HashedPassword=mysqli_real_escape_string($conn, $HashedPassword);
   $Age=mysqli_real_escape_string($conn, $Age);
+  $result=mysqli_query($conn, "SELECT * FROM people WHERE Username='".$Username."'");
+  $count=mysqli_num_rows($result);
+  if ($count>=1){
+  	header("Refresh:0");
+  	echo "Try another Username Please";
+  }
+  else{
   mysqli_query($conn,"INSERT INTO people (Username, Age, Password) VALUES ('".$Username."','".$Age."','".$HashedPassword."')");
+  }
   }
   ?>
 
