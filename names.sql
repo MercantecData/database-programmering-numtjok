@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2017 at 09:21 AM
+-- Generation Time: Dec 08, 2017 at 10:26 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -31,19 +31,27 @@ SET time_zone = "+00:00";
 CREATE TABLE `people` (
   `ID` int(11) NOT NULL,
   `Username` text NOT NULL,
+  `Fullname` varchar(255) NOT NULL,
+  `Location` varchar(255) NOT NULL,
   `Age` int(11) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `people`
+-- Table structure for table `statusupdate`
 --
 
-INSERT INTO `people` (`ID`, `Username`, `Age`, `Password`, `Modified`, `Created`) VALUES
-(7, 'Test', 15, '$2y$10$jkFhxSuKZT62cOBoJ7jm1uaCxjkSFPHHu.DnQWTsX69P4bBYUrvyy', '2017-12-07 09:18:56', '2017-12-07 09:18:56'),
-(8, 'Admin', 78, '$2y$10$k0AZ14CrxHcnt24CWgi4e.kdXxVqTxyDLYiR3lhDCQWzaNzWNJOym', '2017-12-07 09:20:28', '2017-12-07 09:20:28');
+CREATE TABLE `statusupdate` (
+  `PostID` int(11) NOT NULL,
+  `StatusUpdate` varchar(255) NOT NULL,
+  `Modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -56,6 +64,13 @@ ALTER TABLE `people`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `statusupdate`
+--
+ALTER TABLE `statusupdate`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PostID` (`PostID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -63,7 +78,23 @@ ALTER TABLE `people`
 -- AUTO_INCREMENT for table `people`
 --
 ALTER TABLE `people`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `statusupdate`
+--
+ALTER TABLE `statusupdate`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `statusupdate`
+--
+ALTER TABLE `statusupdate`
+  ADD CONSTRAINT `statusupdate_ibfk_1` FOREIGN KEY (`PostID`) REFERENCES `people` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -40,12 +40,15 @@ $conn = new mysqli($servername, $username, $password, $dbname);
     $Password=$_POST['pass'];
     $Username=mysqli_real_escape_string($conn, $Username);
     $Password=mysqli_real_escape_string($conn, $Password);
-    $sql = "SELECT Password FROM people WHERE Username='".$Username."'"; 
+    $sql = "SELECT ID, Password FROM people WHERE Username='".$Username."'"; 
     $result = $conn->query($sql);
     $HashedPassword=$result->fetch_object()->Password;
+    $result = $conn->query($sql);
+    $UserLoggedIn=$result->fetch_object()->ID;
 
       if (password_verify($Password, $HashedPassword)) {
-        header('Location: ./Success.html');
+        $_SESSION["UserLoggedIn"]=$UserLoggedIn;
+        header('Location: ./Status.php');
       }
       else {
         echo "Either the password or username is WRONG!";
