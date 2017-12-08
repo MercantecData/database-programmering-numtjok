@@ -56,6 +56,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
   			}
   			else{
  				mysqli_query($conn,"INSERT INTO people (Username, Fullname, Location, Age, Password) VALUES ('".$Username."','".$Fullname."','".$Location."','".$Age."','".$HashedPassword."')");
+ 				header('Location: index.php');
   			}
   	}
 ?>
